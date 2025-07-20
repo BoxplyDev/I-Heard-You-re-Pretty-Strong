@@ -56,6 +56,9 @@ public class PlayerLife : MonoBehaviour
 
     public void Jumpscare()
     {
+        HeartbeatEffect heartbeatEffect = Camera.main.GetComponent<HeartbeatEffect>();
+        heartbeatEffect.ResetEffects();
+        heartbeatEffect.enabled = false;
         TriggerJumpscare();
         
         Debug.Log("Caught By Goku");

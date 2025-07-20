@@ -22,6 +22,7 @@ public class Interact : MonoBehaviour
     public bool ramenReady;
 
     private AudioManager audioManager;
+    public TextMeshProUGUI inventoryText;
 
     private void Start()
     {
@@ -169,6 +170,7 @@ public class Interact : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("Key") && !playerInventory.hasKey)
                 {
                     playerInventory.hasKey = true;
+                    inventoryText.text = "Key x1";
                     Destroy(hit.collider.gameObject);
                     audioManager.Play("cloth_1");
                     FindObjectOfType<HintText>().ShowHint("You Got a Key | Unlock a lock before picking any other keys");
@@ -181,6 +183,7 @@ public class Interact : MonoBehaviour
                     Rigidbody rb = doorLock.GetComponent<Rigidbody>();
                     rb.isKinematic = false;
                     playerInventory.hasKey = false;
+                    inventoryText.text = "";
                     lockSys.locks -= 1;
                     audioManager.Play("lock");
                 }
