@@ -410,7 +410,7 @@ public class GokuAI : MonoBehaviour
             return;
 
         // Check if player is running
-        Vector3 horizontalVelocity = new Vector3(playerRigidbody.velocity.x, 0, playerRigidbody.velocity.z);
+        Vector3 horizontalVelocity = new Vector3(playerRigidbody.linearVelocity.x, 0, playerRigidbody.linearVelocity.z);
         bool isRunning = horizontalVelocity.magnitude > 6f && Input.GetKey(KeyCode.LeftShift);
 
         if (isRunning && Random.value < teleportChance)

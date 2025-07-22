@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GokuSpawn : MonoBehaviour
 {
-    public GameObject goku; // Assign Goku prefab or instance in the Inspector
+    public GameObject goku;
 
     private void Awake()
     {
@@ -25,6 +25,14 @@ public class GokuSpawn : MonoBehaviour
         Transform chosenSpawn = spawnPoints[randomIndex];
 
         // Move Goku to the spawn point before anything else
-        goku.transform.position = chosenSpawn.position;
+        UnityEngine.AI.NavMeshAgent agent = goku.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.Warp(chosenSpawn.position);
+        }
+        else
+        {
+            goku.transform.position = chosenSpawn.position;
+        }
     }
 }

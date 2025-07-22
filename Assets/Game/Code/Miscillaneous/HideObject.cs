@@ -19,6 +19,7 @@ public class HideObject : MonoBehaviour
     private Quaternion startRot;
     private Quaternion startPlayerRot;
     public Transform targetObjectTransform;
+    private PlayerCam playerCam;
     
         private void Start()
         {
@@ -29,12 +30,12 @@ public class HideObject : MonoBehaviour
             playerRigidbody = player.GetComponent<Rigidbody>();
             cam = player.GetComponentInChildren<Camera>();
             hintCode = FindObjectOfType<HintText>();
+            playerCam = cam.gameObject.GetComponent<PlayerCam>();
         }
     
         public void Hide()
         {
             isHiding = true;
-            Debug.Log("Player is hiding under the bed");
             LockPlayer();
         }
     
@@ -42,7 +43,6 @@ public class HideObject : MonoBehaviour
             // Player exited hiding area
             if (Input.GetKeyDown(KeyCode.Q) && isHiding && !life.dead) {
                isHiding = false;
-               Debug.Log("Player stopped hiding under the bed");
                UnlockPlayer();   
             }
         }
@@ -68,12 +68,12 @@ public class HideObject : MonoBehaviour
             CameraManagerOff();
             
             //Hint
-            hintCode.PermanentHint("Press 'Q' to exit locker");
+            hintCode.PermanentHint("Press 'Q' to exit");
         }
 
         private void CameraManagerOff()
         {
-            cam.gameObject.GetComponent<PlayerCam>().enabled = false;
+            playerCam.enabled = false;
             startRot = cam.gameObject.transform.rotation;
             cam.gameObject.transform.rotation = new Quaternion(0,0,0,0);
             startPlayerRot = player.gameObject.transform.rotation;
@@ -82,7 +82,7 @@ public class HideObject : MonoBehaviour
 
         private void CameraManagerOn()
         {
-            cam.gameObject.GetComponent<PlayerCam>().enabled = true;
+            playerCam.enabled = true;
             cam.gameObject.transform.rotation = startRot;
             player.gameObject.transform.rotation = startPlayerRot;
         }

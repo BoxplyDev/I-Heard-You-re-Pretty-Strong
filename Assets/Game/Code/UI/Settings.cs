@@ -8,6 +8,7 @@ public class Settings : MonoBehaviour
 {
     public Slider slider;
     public TextMeshProUGUI sens;
+    public UI_Behavior uiScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +24,13 @@ public class Settings : MonoBehaviour
     public void UpdateSens()
     {
         sens.text = slider.value.ToString();
+    }
+
+    public void CloseMenu()
+    {
+        uiScript.active = false;
+        gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

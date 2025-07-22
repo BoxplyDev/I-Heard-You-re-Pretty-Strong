@@ -47,6 +47,7 @@ public class PlayerLife : MonoBehaviour
 
     public void Die()
     {
+        Disableheartbeat();
         DisableMovement();
         deathUI.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
@@ -56,9 +57,7 @@ public class PlayerLife : MonoBehaviour
 
     public void Jumpscare()
     {
-        HeartbeatEffect heartbeatEffect = Camera.main.GetComponent<HeartbeatEffect>();
-        heartbeatEffect.ResetEffects();
-        heartbeatEffect.enabled = false;
+        Disableheartbeat();
         TriggerJumpscare();
         
         Debug.Log("Caught By Goku");
@@ -126,5 +125,12 @@ public class PlayerLife : MonoBehaviour
         }
 
         vignette.intensity.value = targetIntensity;
+    }
+
+    private void Disableheartbeat()
+    {
+        HeartbeatEffect heartbeatEffect = Camera.main.GetComponent<HeartbeatEffect>();
+        heartbeatEffect.ResetEffects();
+        heartbeatEffect.enabled = false;
     }
 }
